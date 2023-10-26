@@ -40,7 +40,26 @@ class PlaylistMerger:
         for i in range(len(urls)):
             self.download(urls[i])
     
-    
+    def createMergedVideo(self):
+        path = "bin"
+        video_file_list = glob.glob(f"{path}/*.mp4")
+        print(video_file_list)
+
+        # load videos from bin
+        loaded_video_list = []
+        for video in video_file_list:
+            print(f"Adding video file:{video}")
+            loaded_video_list.append(VideoFileClip(video))
+        
+        # rezise videos
+        for i in range(len(loaded_video_list)):
+            loaded_video_list[i] = loaded_video_list[i].resize((1280, 720))
+
+        # generate final clip
+        final_clip = concatenate_videoclips(loaded_video_list, method='compose')
+        final_clip.write_videofile("merged_playlist.mp4")
+
+
 if __name__ == "__main__":
     playlist = "https://www.youtube.com/playlist?list=PLERI1_ESTKAwVhUliNnKieLrsK8M75ynb"
     link = "https://www.youtube.com/watch?v=5ZKdReHSARQ"
@@ -48,3 +67,4 @@ if __name__ == "__main__":
     pg = PlaylistMerger(playlist_url=playlist)
     pg.downloadVideoList(playlist)
     print(pg.getFilenamesFromBin())
+    pg.createMergedVideo()
