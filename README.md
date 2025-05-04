@@ -18,7 +18,7 @@ Enjoy listening to your favorite playlists as one contiguous audio file, and ski
 
 ## 📦 Installation
 
-Installation of Python is required.  You can install the tool from [PyPI]()
+Installation of Python is required.  You can install the tool from [PyPI](https://pypi.org/project/ytp2mp3/)
 
 ```bash
 pip install ytp2mp3
