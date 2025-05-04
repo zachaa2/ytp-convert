@@ -1,5 +1,7 @@
 # 🎵 ytp2mp3
 
+[![PyPI version](https://badge.fury.io/py/ytp2mp3.svg)](https://pypi.org/project/ytp2mp3/)
+
 **ytp2mp3** is a Python-based command-line tool that downloads a YouTube playlist and merges all audio tracks into a single `.mp3` file.
 
 Enjoy listening to your favorite playlists as one contiguous audio file, and skip advertisements. 
