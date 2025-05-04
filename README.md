@@ -1,19 +1,54 @@
-# Python tool to merge a youtube playlist into one video
+# 🎵 ytp2mp3
 
-### Dependencies:
+**ytp2mp3** is a Python-based command-line tool that downloads a YouTube playlist and merges all audio tracks into a single `.mp3` file.
 
-- python 3
+Enjoy listening to your favorite playlists as one contiguous audio file, and skip advertisements. 
 
-- pip
+---
 
-- ffmpeg
+## 🚀 Features
 
-- PyTube
+- Downloads entire **YouTube playlists**
+- Extracts **audio only**
+- Merges all tracks into one `.mp3` file
+- Cross-platform (Windows, macOS, Linux)
+- Built with `yt-dlp`, `pydub`, and `ffmpeg`
 
-- MoviePy
+---
 
-### Installation Info:
+## 📦 Installation
 
-First make sure python 3 and pip is installed. For info on how to install python 3, click [here](https://www.python.org/downloads/). For more info on how to install pip, click [here](https://pypi.org/project/pip/)
+Installation of Python is required.  You can install the tool from [PyPI]()
 
-Next, install the rest of the dependencies using the "installDepenencies.cmd" script in the "scripts" folder
+```bash
+pip install ytp2mp3
+```
+
+⚠️ ffmpeg is required — see below.
+
+## Usage
+
+| Option             | Description                                              |
+| ------------------ | -------------------------------------------------------- |
+| `url` (positional) | The YouTube playlist URL                                 |
+| `-o`, `--output`   | Name of the output `.mp3` file (default: `combined.mp3`) |
+
+## 🔧 System Requirement: ffmpeg
+
+pydub requires ffmpeg to process audio streams.
+
+### macOS
+```bash
+brew install ffmpeg
+```
+
+### Ubuntu / Debian
+```bash
+sudo apt install ffmpeg
+```
+
+### Windows
+Download from ffmpeg.org
+
+Add the bin/ folder to your system PATH
+

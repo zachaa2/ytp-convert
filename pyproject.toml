@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "ytp2mp3"
-version = "0.1.0"
+version = "0.1.1"
 description = "A CLI tool to convert YouTube playlists into a single MP3 file"
 readme = "README.md"
 requires-python = ">=3.7"
@@ -20,7 +20,7 @@ dependencies = [
 ]
 
 [project.urls]
-"Homepage" = "https://github.com/yourusername/ytp2mp3"
+"Homepage" = "https://github.com/zachaa2/ytp2mp3"
 
 [project.scripts]
 ytp2mp3 = "ytp2mp3.cli:main"
