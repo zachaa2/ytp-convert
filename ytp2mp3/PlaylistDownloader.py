@@ -16,6 +16,11 @@ class PlaylistDownloader:
     Attributes:
         playlist_link (str): The URL of the YouTube playlist to process.
     """
+    class QuietLogger:
+        def debug(self, msg): pass
+        def warning(self, msg): pass
+        def error(self, msg): print(f"❌ {msg}")
+
 
     def __init__(self, playlist_url: str):
         """
@@ -28,6 +33,14 @@ class PlaylistDownloader:
             raise ValueError(f"Invalid YouTube playlist URL - {playlist_url}")
         
         self.playlist_link = playlist_url
+        self.total_videos: int = 0
+        self.completed_downloads: int = 0
+    
+    def _progress_hook(self, d):
+        if d['status'] == 'finished':
+            self.completed_downloads += 1
+            filename = os.path.basename(d['filename'])
+            print(f"✅ ({self.completed_downloads}/{self.total_videos}) Finished: {filename}")
 
     def _is_valid_playlist_url(self, url: str) -> bool:
         """
@@ -68,10 +81,13 @@ class PlaylistDownloader:
             raise ValueError(f"Invalid output file - '{output_file}'. The filename must end with '.mp3'")
 
         with tempfile.TemporaryDirectory(prefix="ytp2mp3_") as tmpdir:
-            ydl_opts = {
+            ydl_opts: dict = {
                 'format': 'bestaudio/best',
                 'outtmpl': os.path.join(tmpdir, '%(playlist_index)03d_%(title).200s.%(ext)s'),
-                'quiet': False,
+                'quiet': True,
+                'no_warnings': True,
+                'progress_hooks': [self._progress_hook],
+                'logger': self.QuietLogger(),
                 'noplaylist': False,
                 'ignoreerrors': ignore_errors,
                 'postprocessors': [{
@@ -81,9 +97,19 @@ class PlaylistDownloader:
                 }],
             }
 
+            # get num videos in the playlist
+            with YoutubeDL({'quiet': True}) as probe:
+                info = probe.extract_info(self.playlist_link, download=False)
+                self.total_videos = len(info.get('entries', []))
+            print(f"🎵 Found {self.total_videos} videos in the playlist.")
+            if ignore_errors:
+                print("⚠️ 'Force' mode enabled: will skip failed downloads.")
+            else:
+                print("🚫 'Force' mode not enabled: will abort on first error.")
+                  
             try:
                 with YoutubeDL(ydl_opts) as ydl:
-                    print("Downloading playlist...")
+                    print("\nDownloading playlist...")
                     ydl.download([self.playlist_link])
             except (DownloadError, UnsupportedError, ExtractorError) as e:
                 raise RuntimeError(f"Youtube Download Failed: {e}")
@@ -102,7 +128,10 @@ class PlaylistDownloader:
                 combined += AudioSegment.from_file(path)
 
             combined.export(output_file, format="mp3")
-            print(f"\nCombined MP3 saved to: {output_file}")
+            print(f"🎧 Combined MP3 saved to: {output_file}")
+            print("\n📊 Download Summary:")
+            print(f"✅ Success: {self.completed_downloads}")
+            print(f"❌ Skipped: {self.total_videos - self.completed_downloads}")
 
 # test usage
 if __name__ == "__main__":
