@@ -34,6 +34,7 @@ pip install ytp2mp3
 | ------------------ | -------------------------------------------------------- |
 | `url` (positional) | The YouTube playlist URL                                 |
 | `-o`, `--output`   | Name of the output `.mp3` file (default: `combined.mp3`) |
+| `-f`, `--force`    | Whether to skip or abort on failed video downloads       |
 
 ## 🔧 System Requirement: ffmpeg
 
