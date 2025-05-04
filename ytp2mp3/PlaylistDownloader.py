@@ -52,12 +52,13 @@ class PlaylistDownloader:
 
         return bool(list_param.strip())
 
-    def downloadPlaylist(self, output_file: str = "combined.mp3") -> None:
+    def downloadPlaylist(self, output_file: str = "combined.mp3", ignore_errors: bool = False) -> None:
         """
         Downloads all audio tracks from the playlist, merges them into a single MP3 file and writes it to disk. 
 
         Args:
             output_file (str): The filename for the final combined MP3 output. Defaults to 'combined.mp3'.
+            ignore_errors (bool): Continue downloading the rest of the playlist even if some videos fail.
 
         Raises:
             Exception: If no MP3 audio files are downloaded.
@@ -72,6 +73,7 @@ class PlaylistDownloader:
                 'outtmpl': os.path.join(tmpdir, '%(playlist_index)03d_%(title).200s.%(ext)s'),
                 'quiet': False,
                 'noplaylist': False,
+                'ignoreerrors': ignore_errors,
                 'postprocessors': [{
                     'key': 'FFmpegExtractAudio',
                     'preferredcodec': 'mp3',
