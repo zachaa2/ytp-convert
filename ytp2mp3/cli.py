@@ -1,5 +1,6 @@
 import argparse
 from .PlaylistDownloader import PlaylistDownloader
+import sys
 
 def main():
     parser = argparse.ArgumentParser(
@@ -18,3 +19,7 @@ def main():
         downloader.downloadPlaylist(output_file=args.output)
     except Exception as e:
         print(f"❌ Error: {e}")
+        sys.exit(1)
+
+if __name__ == "__main__":
+    main()
