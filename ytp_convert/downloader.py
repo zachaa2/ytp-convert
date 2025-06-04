@@ -77,7 +77,7 @@ class PlaylistDownloader:
             Exception: If no MP3 audio files are downloaded.
         """
         output_file = output_file.strip()
-        if not output_file.lower().endswith(".mp3"): # check file extension
+        if not output_file.lower().endswith(".mp3"):
             raise ValueError(f"Invalid output file - '{output_file}'. The filename must end with '.mp3'")
 
         with tempfile.TemporaryDirectory(prefix="ytp2mp3_") as tmpdir:
