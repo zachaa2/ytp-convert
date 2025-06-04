@@ -3,9 +3,9 @@ requires = ["setuptools>=61.0", "wheel"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "ytp2mp3"
-version = "0.2.0"
-description = "A CLI tool to convert YouTube playlists into a single MP3 file"
+name = "ytp-convert"
+version = "1.0.0"
+description = "A CLI tool to convert YouTube playlists into a single file"
 readme = "README.md"
 requires-python = ">=3.7"
 license = {text = "MIT"}
@@ -20,7 +20,7 @@ dependencies = [
 ]
 
 [project.urls]
-"Homepage" = "https://github.com/zachaa2/ytp2mp3"
+"Homepage" = "https://github.com/zachaa2/ytp-convert"
 
 [project.scripts]
-ytp2mp3 = "ytp2mp3.cli:main"
+ytp-convert = "ytp_convert.cli:main"

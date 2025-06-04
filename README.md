@@ -1,8 +1,8 @@
-# 🎵 ytp2mp3
+# 🎵 ytp-convert
 
 [![PyPI version](https://badge.fury.io/py/ytp2mp3.svg)](https://pypi.org/project/ytp2mp3/)
 
-**ytp2mp3** is a Python-based command-line tool that downloads a YouTube playlist and merges all audio tracks into a single `.mp3` file.
+**ytp-convert** is a Python-based command-line tool that downloads a YouTube playlist and merges all audio tracks into a single file.
 
 Enjoy listening to your favorite playlists as one contiguous audio file, and skip advertisements. 
 
@@ -11,8 +11,7 @@ Enjoy listening to your favorite playlists as one contiguous audio file, and ski
 ## 🚀 Features
 
 - Downloads entire **YouTube playlists**
-- Extracts **audio only**
-- Merges all tracks into one `.mp3` file
+- Merges all tracks into one file
 - Cross-platform (Windows, macOS, Linux)
 - Built with `yt-dlp`, `pydub`, and `ffmpeg`
 
@@ -23,7 +22,7 @@ Enjoy listening to your favorite playlists as one contiguous audio file, and ski
 Installation of Python is required.  You can install the tool from [PyPI](https://pypi.org/project/ytp2mp3/)
 
 ```bash
-pip install ytp2mp3
+pip install ytp-convert
 ```
 
 ⚠️ ffmpeg is required — see below.
