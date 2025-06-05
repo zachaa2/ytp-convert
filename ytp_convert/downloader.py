@@ -41,9 +41,10 @@ class PlaylistDownloader:
     
     def _progress_hook(self, d):
         if d['status'] == 'finished':
-            self.completed_downloads += 1
             filename = os.path.basename(d['filename'])
-            print(f"✅ ({self.completed_downloads}/{self.total_videos}) Finished: {filename}")
+            if filename.endswith(("mp3", "mp4")):
+                self.completed_downloads += 1
+                print(f"✅ ({self.completed_downloads}/{self.total_videos}) Finished: {filename}")
 
     def _is_valid_playlist_url(self, url: str) -> bool:
         """
