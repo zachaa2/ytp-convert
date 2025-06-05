@@ -19,5 +19,6 @@ build/
 
 # output files
 *.mp3
+*.mp4
 output.mp3
 *.webm
