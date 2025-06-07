@@ -4,7 +4,7 @@
 
 **ytp-convert** is a Python-based command-line tool that downloads entire YouTube playlist and combines the content into a single media file.
 
-Enjoy listening to your favorite playlists as one contiguous audio file, and skip advertisements. 
+Enjoy listening to your favorite playlists as one contiguous file, and skip advertisements. 
 
 ---
 
@@ -29,14 +29,16 @@ pip install ytp-convert
 
 ## Usage
 
-| Option             | Description                                              |
-| ------------------ | -------------------------------------------------------- |
-| `url` (positional) | The YouTube playlist URL                                 |
-| `-o`, `--output`   | Output filename (must end in `.mp3`) |
-| `-f`, `--force`    | Whether to skip or abort on failed video downloads       |
+| Option               | Description                                                                 |
+|----------------------|-----------------------------------------------------------------------------|
+| `url` (positional)   | The YouTube playlist URL                                                    |
+| `-o`, `--output`     | Output filename **without extension** (default: `combined`)                 |
+| `-f`, `--force`      | Skip failed downloads instead of aborting the process                       |
+| `--format`           | Output format: `mp3` or `mp4` (default: `mp3`)                              |
+
 
 ```bash
-ytp-convert "https://youtube.com/playlist?list=..." -o my_playlist.mp3
+ytp-convert "https://youtube.com/playlist?list=..." -o my_playlist --format .mp3
 ```
 
 For more help, use
@@ -46,7 +48,7 @@ ytp-convert --help
 
 ## 🔧 System Requirement: ffmpeg
 
-pydub requires ffmpeg to process audio streams.
+This tool requires ffmpeg to process audio streams and concatenate media files. The installation instructions are below.
 
 ### macOS
 ```bash
