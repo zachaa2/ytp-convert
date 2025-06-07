@@ -13,7 +13,8 @@ import subprocess
 
 class PlaylistDownloader:
     """
-    Downloads a YouTube playlist, extracts audio from each video, and combines all tracks into a single MP3 file.
+    Downloads a YouTube playlist and combines all tracks into a single media file. Supports audio only or audio and video downloads. 
+    Audio files downloaded as mp3, and video files downloaded as mp4. 
     
     Attributes:
         playlist_link (str): The URL of the YouTube playlist to process.
@@ -69,13 +70,29 @@ class PlaylistDownloader:
 
         return bool(list_param.strip())
 
-    def _write_ffmpeg_txt_file(self, files: List[str], concat_path: str):
+    def _write_ffmpeg_txt_file(self, files: List[str], concat_path: str) -> None:
+        """
+        Helper to write .txt of media files for ffmpeg to concatenate together.
+
+        Args:
+            files (List[str]): list of media files to concatenate
+            concat_path (str): path to open the .txt file
+        """
         with open(concat_path, "w") as f:
             for file in files:
                 f.write(f"file '{os.path.abspath(os.path.join(self.tmpdir, file))}'\n")
 
 
     def _combine_files(self, files: List[str], format: str, output_file: str) -> None:
+        """
+        Helper to concatenate a list of media files together. Concatenation order is done in the order the files appear 
+        in the list of files. 
+
+        Args:
+            files (List[str]): list of files to combine (as file paths)
+            format (str): format of the media file (mp3 or mp4)
+            output_file (str): name of the final combined file 
+        """
         if format == "mp3":
             combined = AudioSegment.empty()
             for fname in files:
@@ -115,6 +132,14 @@ class PlaylistDownloader:
             raise ValueError("Unexpected File Format in combine_files()")
 
     def _get_ydl_opts(self, format: str, ignore_errors: bool) -> dict:
+        """
+        Getter for ydl optional args based on the specified format. 
+        Args:
+            format (str): media format (mp3 or mp4)
+            ignore_errors (bool): optional ydl flag, obtained as an arg from the user. 
+        Returns:
+            dict: ydl options as a dictionary
+        """
         if format == "mp3":
             return {
                 'format': 'bestaudio/best',
